@@ -1,5 +1,5 @@
 @import "../../styles/@mixins"
-    
+
 .header
     width: 100%
     height: 265px
@@ -28,10 +28,46 @@
     padding-bottom: 16px
 
 .header__button
-    margin-right: auto
     position: absolute
-    top: 32px
-    right: 80px
     padding: 8px 16px
     border: 1px solid white
     border-radius: 8px
+
+.header__button_type_back
+    top: 38px
+    left: 80px
+
+.header__button_type_exit
+    top: 32px
+    right: 80px
+
+.headerCard
+    height: 100%
+    width: 100%
+    max-width: 1440px
+    margin: 0 auto
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+
+.headerCard__wrapper
+    display: flex
+    max-width: 65%
+    width: 100%
+.header__img
+    border-radius: 50%
+    width: 187px
+    height: 187px
+
+.headerCard__text
+    padding-left: 32px
+    padding-top: 30px
+.headerCard__description
+    @include partnerDescription
+    max-width: 846px
+    margin: 0 auto
+
+.headerCard__title
+    @include h1
+    // padding-bottom: 8px
