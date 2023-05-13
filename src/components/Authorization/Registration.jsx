@@ -3,7 +3,7 @@ import "./Auth.sass";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
 export const Registration = () => {
   const {
@@ -12,8 +12,8 @@ export const Registration = () => {
     watch,
     formState: { errors },
   } = useForm({
-    mode: "onChange"
-  })
+    mode: "onChange",
+  });
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ export const Registration = () => {
     setShowPass(!showPass);
     console.log(showPass);
   };
-
 
   return (
     <section className="auth">
@@ -53,7 +52,7 @@ export const Registration = () => {
             autoComplete="off"
             aria-invalid={errors.name ? "true" : "false"}
           />
-          {errors.name && <p role="alert">{errors.name.message}</p>}
+          {errors.name && <p role="alert" className="formError">{errors.name.message}</p>}
         </div>
 
         <div className="form-group">
@@ -65,10 +64,8 @@ export const Registration = () => {
               required: "Обязательное поле",
               pattern: {
                 value: regex,
-                message: 'This input must exceed correct email adress',
+                message: "This input must exceed correct email adress",
               },
-              
-             
             })}
             className="input"
             name="email"
@@ -78,9 +75,7 @@ export const Registration = () => {
             autoComplete="off"
             aria-invalid={errors.email ? "true" : "false"}
           />
-            {errors.email && (
-              <p role="alert">{errors.email.message}</p>
-            )}
+          {errors.email && <p role="alert" className="formError">{errors.email.message}</p>}
         </div>
 
         <div className="form-group">
@@ -104,7 +99,7 @@ export const Registration = () => {
               autoComplete="off"
               aria-invalid={errors.password ? "true" : "false"}
             />
-            {errors.password && <p role="alert">{errors.password.message}</p>}
+            {errors.password && <p role="alert" className="formError">{errors.password.message}</p>}
             <button
               type="button"
               className="showPassword"
@@ -136,7 +131,7 @@ export const Registration = () => {
               aria-invalid={errors.passwordCheck ? "true" : "false"}
             />
             {errors.passwordCheck && (
-              <p role="alert">{errors.passwordCheck.message}</p>
+              <p role="alert" className="formError">{errors.passwordCheck.message}</p>
             )}
             <button
               type="button"
@@ -148,6 +143,16 @@ export const Registration = () => {
 
         <button className="formSubmit">Зарегистрироваться</button>
       </form>
+      <button
+        className="navigateTo"
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          navigate("/signin");
+        }}
+      >
+        Уже зарегистрированы?
+      </button>
     </section>
   );
 };
