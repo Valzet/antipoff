@@ -1,12 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { CardPage } from "./pages/Card";
 import { useEffect, useState } from "react";
 import { mainApi } from "./utils/mainApi";
 import { useDispatch } from "react-redux";
 import { setUsers } from "./store/usersSlice";
-import { Registration } from "./pages/Registration";
-import { Login } from "./pages/Login";
+import { RegistrationPage, LoginPage, HomePage, CardPage } from "./pages";
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(null);
@@ -23,10 +20,10 @@ function App() {
   }, []);
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/:id" element={<CardPage />} />
-      <Route path="/signup" element={<Registration />} />
-      <Route path="/signin" element={<Login />} />
+      <Route path="/signup" element={<RegistrationPage />} />
+      <Route path="/signin" element={<LoginPage />} />
     </Routes>
   );
 }

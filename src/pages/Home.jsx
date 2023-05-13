@@ -1,7 +1,7 @@
 import { CardList } from "../components/Card/CardsList"
 import { HeaderHome } from "../components/Header/HeaderHome"
 
-export const Home = () => {
+export const HomePage = () => {
     return (
         <>
         <HeaderHome />
