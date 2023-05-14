@@ -1,7 +1,6 @@
 import "./Card.sass";
 
 export const CardOpened = ({ data }) => {
-  console.log(data);
   return (
     <section className="cardOpened">
       <div className="cardOpened__text">

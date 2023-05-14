@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { CardOpened } from "../components/Card/CardOpened";
 
-export const CardPage = () => {
+export const CardPage = ({handleExit}) => {
   const { id } = useParams();
   const [data, setData] = useState({});
   const card = useSelector((state) => state.users.users);
@@ -14,7 +14,7 @@ export const CardPage = () => {
   }, [card]);
   return (
     <section className="CardPage">
-      <HeaderCard data={data} />
+      <HeaderCard data={data} handleExit={handleExit} />
       <CardOpened data={data} />
     </section>
   );

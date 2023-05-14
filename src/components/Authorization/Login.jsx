@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import "./Auth.sass";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { mainApi } from "../../utils/mainApi";
+import { setToken, setLoggedIn } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 export const Login = () => {
   const {
@@ -11,10 +14,22 @@ export const Login = () => {
   } = useForm();
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onSubmit = (e, data) => {
-    e.preventDefault();
-    console.log(data);
+  const onSubmit = async (data) => {
+    mainApi
+      .login(data)
+      .then((res) => {
+        console.log(res);
+        dispatch(setToken(res.token));
+        dispatch(setLoggedIn(true));
+        localStorage.setItem("logIn", true);
+        localStorage.setItem("token", res.token);
+      })
+      .finally(navigate("/"))
+      .catch((err) => {
+        console.warn(err);
+      });
   };
 
   const handleShowPass = () => {
@@ -58,7 +73,6 @@ export const Login = () => {
             <input
               {...register("password", {
                 required: "Обязательное поле",
-    
               })}
               className="input"
               name="password"
@@ -91,7 +105,7 @@ export const Login = () => {
           navigate("/signup");
         }}
       >
-        Уже авторизованы?
+        Еще не зарегистрированы?
       </button>
     </section>
   );
