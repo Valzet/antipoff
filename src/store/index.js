@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./usersSlice";
+import usersSlice from "./usersSlice";
 import authSlice from "./authSlice";
+import modalSlice from "./modalSlice";
 
 export default configureStore({
   reducer: {
-    users: usersReducer,
+    users: usersSlice,
     auth: authSlice,
+    modal: modalSlice
   },
 });
