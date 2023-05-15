@@ -24,6 +24,13 @@ class MainApi {
       body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
+  register(data) {
+    return fetch(`${this._baseUrl}/register`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
+  }
 }
 export const mainApi = new MainApi({
   baseUrl: "https://reqres.in/api",

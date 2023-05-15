@@ -7,19 +7,21 @@ export const CardList = () => {
   const [data, setData] = useState([]);
   const [cardsCount, setCardsCount] = useState(8);
   const users = useSelector((state) => state.users.users);
-
   useEffect(() => {
-    setData(users.data?.slice(0, cardsCount));
+    if (users.length) {
+      setData(users.slice(0, cardsCount));
+    }
   }, [cardsCount, users]);
 
-  const handleAddMoreCards =() => {
+
+  const handleAddMoreCards = () => {
     setCardsCount((prev) => prev + 4);
-  }
+  };
 
   return (
     <section className="cardList">
       <ul className="cardList__wrapper">
-        {data?.map((el) => (
+        {data.map((el) => (
           <CardItem data={el} key={el.id} />
         ))}
       </ul>

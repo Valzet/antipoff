@@ -16,17 +16,18 @@ export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     mainApi
       .login(data)
       .then((res) => {
-        console.log(res);
         dispatch(setToken(res.token));
         dispatch(setLoggedIn(true));
         localStorage.setItem("logIn", true);
         localStorage.setItem("token", res.token);
       })
-      .finally(navigate("/"))
+      .finally(() => {
+        navigate("/");
+      })
       .catch((err) => {
         console.warn(err);
       });
@@ -56,7 +57,6 @@ export const Login = () => {
             type="text"
             placeholder="email"
             autoComplete="off"
-            aria-invalid={errors.email ? "true" : "false"}
           />
           {errors.email && (
             <p role="alert" className="formError">
@@ -80,7 +80,6 @@ export const Login = () => {
               type={showPass ? "text" : "password"}
               placeholder="******"
               autoComplete="off"
-              aria-invalid={errors.password ? "true" : "false"}
             />
             {errors.password && (
               <p role="alert" className="formError">

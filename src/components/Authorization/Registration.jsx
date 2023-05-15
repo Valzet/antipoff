@@ -2,10 +2,13 @@ import { useForm } from "react-hook-form";
 import "./Auth.sass";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { mainApi } from "../../utils/mainApi";
+import { setToken, setLoggedIn } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
 export const Registration = () => {
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     register,
@@ -17,14 +20,23 @@ export const Registration = () => {
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = (e, data) => {
-    e.preventDefault();
-    console.log(data);
+  const onSubmit = async (data) => {
+    mainApi
+      .register(data)
+      .then((res) => {
+        dispatch(setToken(res.token));
+        dispatch(setLoggedIn(true));
+        localStorage.setItem("logIn", true);
+        localStorage.setItem("token", res.token);
+      })
+      .finally(() => navigate("/"))
+      .catch((err) => {
+        console.warn(err);
+      });
   };
 
   const handleShowPass = () => {
     setShowPass(!showPass);
-    console.log(showPass);
   };
 
   return (
@@ -50,9 +62,12 @@ export const Registration = () => {
             type="text"
             placeholder="Имя"
             autoComplete="off"
-            aria-invalid={errors.name ? "true" : "false"}
           />
-          {errors.name && <p role="alert" className="formError">{errors.name.message}</p>}
+          {errors.name && (
+            <p role="alert" className="formError">
+              {errors.name.message}
+            </p>
+          )}
         </div>
 
         <div className="form-group">
@@ -73,9 +88,12 @@ export const Registration = () => {
             type="text"
             placeholder="email"
             autoComplete="off"
-            aria-invalid={errors.email ? "true" : "false"}
           />
-          {errors.email && <p role="alert" className="formError">{errors.email.message}</p>}
+          {errors.email && (
+            <p role="alert" className="formError">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className="form-group">
@@ -87,8 +105,8 @@ export const Registration = () => {
               {...register("password", {
                 required: "Обязательное поле",
                 minLength: {
-                  value: 8,
-                  message: "This input must exceed 8 characters",
+                  value: 6,
+                  message: "This input must exceed 6 characters",
                 },
               })}
               className="input"
@@ -97,9 +115,12 @@ export const Registration = () => {
               type={showPass ? "text" : "password"}
               placeholder="******"
               autoComplete="off"
-              aria-invalid={errors.password ? "true" : "false"}
             />
-            {errors.password && <p role="alert" className="formError">{errors.password.message}</p>}
+            {errors.password && (
+              <p role="alert" className="formError">
+                {errors.password.message}
+              </p>
+            )}
             <button
               type="button"
               className="showPassword"
@@ -128,10 +149,11 @@ export const Registration = () => {
               type={showPass ? "text" : "password"}
               placeholder="******"
               autoComplete="off"
-              aria-invalid={errors.passwordCheck ? "true" : "false"}
             />
             {errors.passwordCheck && (
-              <p role="alert" className="formError">{errors.passwordCheck.message}</p>
+              <p role="alert" className="formError">
+                {errors.passwordCheck.message}
+              </p>
             )}
             <button
               type="button"

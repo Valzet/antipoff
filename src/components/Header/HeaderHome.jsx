@@ -1,6 +1,5 @@
 import "./Header.sass";
 export const HeaderHome = ({handleExit}) => {
-  console.log(handleExit)
   return (
     <header className="header headerHome">
       <div className="headerHome__wrapper">
