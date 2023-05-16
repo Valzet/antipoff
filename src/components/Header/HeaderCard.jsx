@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../Modal/Modal";
 import { setModalOpened } from "../../store/modalSlice";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 export const HeaderCard = ({ data, handleExit }) => {
-  // const {avatar, first_name, last_name} = data
+  const isMobile = useMediaQuery("(max-width: 1100px)");
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -20,13 +21,13 @@ export const HeaderCard = ({ data, handleExit }) => {
           className="header__button header__button_type_back"
           onClick={handleGoBack}
         >
-          Назад
+          {!isMobile ? 'Назад' : ''}
         </button>
         <button
           className="header__button header__button_type_exit"
           onClick={handleExit}
         >
-          Выход
+          {!isMobile ? 'Выход' : ''}
         </button>
         <div className="headerCard__wrapper">
           <img

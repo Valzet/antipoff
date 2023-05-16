@@ -20,7 +20,6 @@ export const Modal = ({ data }) => {
   const handleChangeImg = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log(e);
     let users = JSON.parse(localStorage.getItem("users")) || [];
     let userIndex = users.findIndex((el) => el.id == data.id);
     users[userIndex].avatar = img;

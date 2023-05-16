@@ -21,6 +21,7 @@
     max-width: 846px
     text-align: center
     margin: 0 auto
+    padding: 0 30px
 
 .header__title
     @include h1
@@ -72,3 +73,46 @@
 .headerCard__title
     @include h1
     // padding-bottom: 8px
+
+@media screen and ('max-width: 1100px')
+    .headerCard__description
+        @include partnerDescription-mob
+
+    .headerCard__title
+        @include h1-mob
+
+    .header__description
+        @include mainText-mob
+
+    .header__title
+        @include h1-mob
+
+    .headerCard__wrapper
+        flex-direction: column-reverse
+        justify-content: center
+        align-items: center
+    .header
+        height: 412px
+    .headerCard__text
+        text-align: center
+        padding: 0 0 16px
+
+    .header__button
+        position: absolute
+        padding: 0
+        border: none
+        border-radius: 0
+
+    .header__button_type_back
+        top: 12px
+        left: 16px
+        background-image: url('../../assets/icons/goBackIcon.svg')
+        width: 40px
+        height: 40px
+
+    .header__button_type_exit
+        width: 40px
+        height: 40px
+        top: 12px
+        right: 16px
+        background-image: url('../../assets/icons/exitIcon.svg')

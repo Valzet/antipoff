@@ -35,7 +35,6 @@ export const Login = () => {
 
   const handleShowPass = () => {
     setShowPass(!showPass);
-    console.log(showPass);
   };
 
   return (
